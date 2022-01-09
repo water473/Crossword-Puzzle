@@ -1,16 +1,21 @@
 import java.util.Scanner;
 public class Main{
+	//Class Level boolean variable, to be used by the place method
 	public static boolean isVertical = true;
 	public static void main(String[] args) {
+		//50 by 50 board for the puzzle
 		char[][] puzzle = new char[50][50];
 		Scanner sc = new Scanner(System.in);
 		
+		//Fill board with spaces
 		String[] words = new String[5];
 		for(int i = 0; i<puzzle.length; i++) {
 			for(int j = 0; j<puzzle[i].length; j++) {
 				puzzle[i][j] = ' ';
 			}
 		}
+		
+		//User input
 		for(int i = 0; i< 5; i++) {
 			System.out.print("Enter word #" + (i+1) + " : ");
 			String a = sc.nextLine();
@@ -18,9 +23,8 @@ public class Main{
 
 		}
 		
-		/*ignore these system.out.println, they are here to make the output look nicer
-		 * 
-		 */
+		//ignore these system.out.println, they are here to make the output look nicer
+		
 		System.out.println();
 		System.out.println();
 		System.out.println();
@@ -30,6 +34,8 @@ public class Main{
 		sortDescending(words);
 		String longest = words[0];
 		int column = 20;
+		
+		//place longest word in the middle of the board
 		for(int i = 0;i<longest.length(); i++) {
 			puzzle[25][column] = longest.charAt(i);
 			column++;
@@ -46,7 +52,7 @@ public class Main{
 	
 	
 	
-	
+	//Finds the longest word that the user inputs
 	public static String longest(String[] a) {
 		String longest = "";
 		for(String x: a) {
@@ -57,7 +63,7 @@ public class Main{
 		return longest;
 	}
 	
-	
+	//method that places the word in the correct orientation if possible
 	public static void place(char[][] puzzle, String b) {
 		int count = 0;
 	outer:	 for(int h = 0; h<b.length(); h++) {
@@ -104,6 +110,7 @@ public class Main{
 	}
 }
 	
+	//method that checks if the word can be placed vertically
 	public static boolean verticalCheck(char[][] puzzle, int i, int j) {
 		int count = 0;
 		for(int h = 0; h<puzzle.length; h++) {
@@ -123,6 +130,7 @@ public class Main{
 		return true;
 	}
 	
+	//method that checks if the word can be placed horizontally
 	public static boolean horizontalCheck(char[][] puzzle, int i, int j) {
 		int count = 0;
 		for(int h = 0; h<puzzle.length; h++) {
@@ -142,6 +150,7 @@ public class Main{
 		return true;
 	}
 	
+	//sorts the array of strings by length descending
 	public static void sortDescending(String[] arr) {
 		for(int i = 0; i<arr.length; i++) {
 			for(int j = i+1; j<arr.length; j++) {
@@ -153,7 +162,7 @@ public class Main{
 			}
 		}
 	}
-	
+	//prints out the 2d board array into the console
 	public static void printArray(char[][] a) {
 		for(int i = 0; i<a.length; i++) {
 			for(int j = 0; j<a[i].length; j++) {

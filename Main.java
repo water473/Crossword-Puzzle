@@ -1,16 +1,23 @@
 import java.util.Scanner;
 public class Main{
+	
+	//Class level boolean to be used by methods
 	public static boolean isVertical = true;
 	public static void main(String[] args) {
+		
+		//2d array of char to make a 50 by 50 board for the puzzle
 		char[][] puzzle = new char[50][50];
 		Scanner sc = new Scanner(System.in);
 		
+		//Fill board with spaces
 		String[] words = new String[5];
 		for(int i = 0; i<puzzle.length; i++) {
 			for(int j = 0; j<puzzle[i].length; j++) {
 				puzzle[i][j] = ' ';
 			}
 		}
+		
+		//User input 
 		for(int i = 0; i< 5; i++) {
 			System.out.print("Enter word #" + (i+1) + " : ");
 			String a = sc.nextLine();
@@ -30,6 +37,8 @@ public class Main{
 		sortDescending(words);
 		String longest = words[0];
 		int column = 20;
+		
+		//place longest word in the middle of the board
 		for(int i = 0;i<longest.length(); i++) {
 			puzzle[25][column] = longest.charAt(i);
 			column++;
@@ -46,7 +55,7 @@ public class Main{
 	
 	
 	
-	
+	//Find the longest word the user inputed
 	public static String longest(String[] a) {
 		String longest = "";
 		for(String x: a) {
@@ -58,12 +67,15 @@ public class Main{
 	}
 	
 	
+	
+	//Method that places the words correctly onto the board
 	public static void place(char[][] puzzle, String b) {
 		int count = 0;
 	outer:	 for(int h = 0; h<b.length(); h++) {
 		inner:	for(int i = 0; i<puzzle.length; i++) {
 				for(int j = 0; j<puzzle[0].length; j++) {
 					if(b.charAt(h) == puzzle[i][j]) {
+						//Here we check if the word can be placed vertically, and check if it can be placed horizontally otherwise
 						if(isVertical) {
 							if(verticalCheck(puzzle, i, j)) {
 								int charat = 0;
@@ -85,6 +97,7 @@ public class Main{
 								count++;
 								break outer;
 							}
+							//break inner loop if neither horizontally or vertically works, so that we can check for a different letter 
 							else {
 								break inner;
 							}
@@ -122,7 +135,7 @@ public class Main{
 		System.out.println("\"" + b + "\" couldn't be placed");
 	}
 }
-	
+	//Checks if a word can be placed vertically
 	public static boolean verticalCheck(char[][] puzzle, int i, int j) {
 		int count = 0;
 		for(int h = 0; h<puzzle.length; h++) {
@@ -142,6 +155,7 @@ public class Main{
 		return true;
 	}
 	
+	//Checks if a word can be placed horizontally
 	public static boolean horizontalCheck(char[][] puzzle, int i, int j) {
 		int count = 0;
 		for(int h = 0; h<puzzle.length; h++) {
@@ -161,6 +175,7 @@ public class Main{
 		return true;
 	}
 	
+	//Sorts the user input of Strings by length descending
 	public static void sortDescending(String[] arr) {
 		for(int i = 0; i<arr.length; i++) {
 			for(int j = i+1; j<arr.length; j++) {
@@ -173,6 +188,7 @@ public class Main{
 		}
 	}
 	
+	//prints the 2d array board onto the console
 	public static void printArray(char[][] a) {
 		for(int i = 0; i<a.length; i++) {
 			for(int j = 0; j<a[i].length; j++) {

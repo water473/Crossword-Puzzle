@@ -77,7 +77,7 @@ public class Main{
 					if(b.charAt(h) == puzzle[i][j]) {
 						//Here we check if the word can be placed vertically, and check if it can be placed horizontally otherwise
 						if(isVertical) {
-							if(verticalCheck(puzzle, i, j)) {
+							if(verticalCheck(puzzle, i, j, b, h)) {
 								int charat = 0;
 								for(int x = i-h; x<(i-h)+b.length(); x++) {
 									puzzle[x][j] = b.charAt(charat);
@@ -87,7 +87,7 @@ public class Main{
 								count++;
 								break outer;
 							}
-							else if(horizontalCheck(puzzle,i,j)) {
+							else if(horizontalCheck(puzzle, i, j, b, h)) {
 								int charat = 0;
 								for(int x = j-h; x<(j-h) + b.length(); x++) {
 									puzzle[i][x] = b.charAt(charat);
@@ -103,7 +103,7 @@ public class Main{
 							}
 						}
 						if(!isVertical) {
-							if(horizontalCheck(puzzle, i, j)) {
+							if(horizontalCheck(puzzle, i, j, b, h)) {
 								int charat = 0;
 								for(int x = j-h; x<(j-h) + b.length(); x++) {
 									puzzle[i][x] = b.charAt(charat);
@@ -113,7 +113,7 @@ public class Main{
 								count++;
 								break outer;
 							}
-							else if(verticalCheck(puzzle, i, j)) {
+							else if(verticalCheck(puzzle, i, j, b, h)) {
 								int charat = 0;
 								for(int x = i-h; x<(i-h)+b.length(); x++) {
 									puzzle[x][j] = b.charAt(charat);
@@ -136,9 +136,9 @@ public class Main{
 	}
 }
 	//Checks if a word can be placed vertically
-	public static boolean verticalCheck(char[][] puzzle, int i, int j) {
+	public static boolean verticalCheck(char[][] puzzle, int i, int j, String b, int z) {
 		int count = 0;
-		for(int h = 0; h<puzzle.length; h++) {
+		for(int h = i-z-1; h<(i-z) + b.length() + 1; h++) {
 			if(puzzle[h][j-1] != ' ' && h != i) {
 				count++;
 			}
@@ -156,9 +156,9 @@ public class Main{
 	}
 	
 	//Checks if a word can be placed horizontally
-	public static boolean horizontalCheck(char[][] puzzle, int i, int j) {
+	public static boolean horizontalCheck(char[][] puzzle, int i, int j, String b, int z) {
 		int count = 0;
-		for(int h = 0; h<puzzle.length; h++) {
+		for(int h = j-z-1; h<(j-z) + b.length() + 1; h++) {
 			if(puzzle[i-1][h] != ' ' && h != j) {
 				count++;
 			}
